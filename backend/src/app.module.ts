@@ -1,10 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {RecipeModule} from "./recipe/recipe.module";
+import { RecipeModule } from './modules/recipe/recipe.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [RecipeModule],
+  imports: [RecipeModule, ConfigModule.forRoot({
+    isGlobal: true,
+    envFilePath: ['.env'],
+  })],
   controllers: [AppController],
   providers: [AppService],
 })
