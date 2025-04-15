@@ -1,12 +1,12 @@
-import * as core from "@nestjs/common";
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ErrorMap } from '../../shared/common/utils/exceptions/ErrorMap';
 import { ConfigService } from '@nestjs/config';
 
-@core.Injectable()
+@Injectable()
 export class RecipeService {
-  private readonly logger = new core.ConsoleLogger(RecipeService.name);
-  private readonly URL;
+  private readonly logger = new Logger(RecipeService.name);
+  private readonly URL: string;
   constructor(private readonly httpService: HttpService,
               private readonly configService: ConfigService) {
     this.URL = this.configService.get<string>('API_URL');
@@ -19,7 +19,7 @@ export class RecipeService {
       return response.data;
     } catch (e) {
       this.logger.error(`Failed to fetch recipes from ${url}, error message: ${e.message}`);
-      throw new core.BadRequestException(ErrorMap.FAILED_REQUEST)
+      throw new BadRequestException(ErrorMap.FAILED_REQUEST)
     }
   }
 
@@ -33,7 +33,7 @@ export class RecipeService {
       return response.data;
     } catch (e) {
       this.logger.error(`Failed to fetch recipes by ingredient criteria from ${url}, error message: ${e.message}`);
-      throw new core.BadRequestException(ErrorMap.FAILED_REQUEST)
+      throw new BadRequestException(ErrorMap.FAILED_REQUEST)
     }
   }
 
@@ -47,7 +47,7 @@ export class RecipeService {
       return response.data;
     } catch (e) {
       this.logger.error(`Failed to fetch recipes by country criteria from ${url}, error message: ${e.message}`);
-      throw new core.BadRequestException(ErrorMap.FAILED_REQUEST);
+      throw new BadRequestException(ErrorMap.FAILED_REQUEST);
     }
   }
 
@@ -61,7 +61,7 @@ export class RecipeService {
       return response.data;
     } catch (e) {
       this.logger.error(`Failed to fetch recipes by category from ${category}, error message: ${e.message}`);
-      throw new core.BadRequestException(ErrorMap.FAILED_REQUEST);
+      throw new BadRequestException(ErrorMap.FAILED_REQUEST);
     }
   }
 
@@ -73,8 +73,7 @@ export class RecipeService {
       return response.data;
     } catch (e) {
       this.logger.error(`Failed to fetch recipe by id criteria from ${id}, error message: ${e.message}`);
-      throw new core.BadRequestException(ErrorMap.FAILED_REQUEST);
+      throw new BadRequestException(ErrorMap.FAILED_REQUEST);
     }
-    core.
   }
 }
