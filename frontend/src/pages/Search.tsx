@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Search: React.FC = () => {
   const [query, setQuery] = useState('');
-  const [searchType, setSearchType] = useState<'ingredient' | 'country' | 'category' | 'id'>('ingredient');
+  const [searchType, setSearchType] = useState<'ingredient' | 'country' | 'category' | 'id' | 'all'>('ingredient');
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -12,6 +12,9 @@ const Search: React.FC = () => {
     if (query) {
 
       let searchQuery = `?${searchType}=${query}`;
+      if (searchType === "all") {
+        navigate(`/recipes`);
+      }
       if (searchType === 'id') {
         searchQuery = `id?id=${query}`;
       }
@@ -32,6 +35,7 @@ const Search: React.FC = () => {
         <option value="country">Country</option>
         <option value="category">Category</option>
         <option value="id">Recipe ID</option>
+        <option value="all">All</option>
       </select>
       <button type="submit">Search</button>
     </form>
