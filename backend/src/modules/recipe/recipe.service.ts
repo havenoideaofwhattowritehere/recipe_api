@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class RecipeService {
   private readonly logger = new Logger(RecipeService.name);
-  private readonly URL: string;
+  private readonly URL;
   constructor(private readonly httpService: HttpService,
               private readonly configService: ConfigService) {
     this.URL = this.configService.get<string>('API_URL');
